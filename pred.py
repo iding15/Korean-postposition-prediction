@@ -1,12 +1,14 @@
-from sklearn.datasets import load_iris
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
 import pandas as pd
 import numpy as np
-from cfJosa import decideJosa
-from sklearn.metrics import accuracy_score
-from sepChunk import md
 
+from cfJosa import decide
+from sepChunk import chunk_to_num
+
+from typing import List
 ## ex_iris
 # iris = load_iris()
 # iris_data = iris.data
@@ -16,49 +18,27 @@ from sepChunk import md
 # print(type(iris_label))
 # print(len(noundata))
 
+
+
 # make data
-def mkdata(lnoun):
-    # noun = decideJosa.noundata
-    n_n = md(lnoun)
-    numnoun = []
-    for n in n_n:
-        numnoun.append([n])
-    # print(numnoun)
-    n_numN = np.array(numnoun).reshape(len(n_n),1)
-    # print(n_numN)
-    return n_numN
-class mktarget:
-    def __init__(self,noun = decideJosa.noundata):
-        self.li = []
-        self.noun = noun
-        self.lenn = len(self.noun)
-    def t_en(self):
-        en = decideJosa(self.noun).EunNeun()
-        for i in en:
-            if i=='은':
-                self.li.append(0)
-            else:
-                self.li.append(1)
-        n_eunneun = np.array(self.li).reshape(self.lenn,)
-        return n_eunneun
-    def t_ig(self):
-        ig = decideJosa(self.noun).IGa()
-        for i in ig:
-            if i=='이':
-                self.li.append(0)
-            else:
-                self.li.append(1)
-        n_iga = np.array(self.li).reshape(self.lenn,)
-        return n_iga
-    def t_er(self):
-        er = decideJosa(self.noun).EulRul()
-        for i in er:
-            if i=='을':
-                self.li.append(0)
-            else:
-                self.li.append(1)
-        n_iga = np.array(self.li).reshape(self.lenn,)
-        return n_iga
+def mkdata(raw_data: List[str]) -> np.array:
+    """
+    예측하기 전 명사 raw 데이터를 array형으로 변환하는 과정
+    """
+    float_data = chunk_to_num(raw_data)
+    return np.array(float_data).reshape(len(float_data), 1)
+
+
+def make_target(raw_data: List[str], josa_type: str) -> np.array:
+    """
+    raw 데이터로 부터 정답 1, 오답 0인 target data를 추출하는 과정
+    """
+    try:
+        target_list = list(map(lambda noun: decide(noun, josa_type), raw_data))
+        return np.array(target_list).reshape(len(target_list), )
+    except ValueError as e:
+        raise e
+
 
 def predjo(noun, josa):
     X_train, X_test, y_train, y_test = train_test_split(noun, josa, test_size=0.2, random_state=11)

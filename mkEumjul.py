@@ -11,10 +11,10 @@ for cho in mo:
         for jong in bat:
             s_eum = cho+jung+jong
             bun_eum.append(s_eum)
-# print(bun_eum)
+
 d_hb = {bun_eum[i]: hab_eum[i] for i in range(len(bun_eum))}
 d_bn = {hab_eum[i]: bun_eum[i] for i in range(len(hab_eum))}
-# res = {test_keys[i]: test_values[i] for i in range(len(test_keys))}
+
 def hbeum(bun):
     try:
         return d_hb[bun]
@@ -30,4 +30,3 @@ def bneum(hab):
         print('입력 오류입니다. 특수문자나 숫자, .이 있는지 확인해주세요. 오류: {}'.format(k))
     except TypeError as t:
         print('문자열로 입력해주세요. 오류: {}'.format(t))
-
