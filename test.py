@@ -1,7 +1,7 @@
 import unittest
-from mkEumjul import hab_eum, bun_eum, bneum
 import re
 import numpy as np
+from noun_data import EUMJUL, get_noun_data, bneum
 
 
 class UnitTest(unittest.TestCase):
@@ -33,6 +33,20 @@ class UnitTest(unittest.TestCase):
         c = b = np.array(list_).reshape(len(list_), )
         self.assertTrue(np.array_equal(a, b))
         self.assertTrue(np.array_equal(a, c))
+    
+    def test_string_replace(self):
+        noun = '와이파ㄴㅇ이-임ㄱ'
+        noun = re.sub('[ㄱ-ㅎ\-]', '', noun)
+        self.assertEqual(noun, '와이파이임')
+    
+    def test_hanguel(self):
+        last_letter = ord(u'힣')
+        self.assertEqual(last_letter, 55203)
+        self.assertEqual(EUMJUL[-1], '힣')
+        self.assertEqual(EUMJUL[0], '가')
+    
+    def test_noundata(self):
+        self.assertEqual(len(get_noun_data()['data']), 700)
 
 
 if __name__=='__main__':

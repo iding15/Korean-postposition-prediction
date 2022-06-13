@@ -1,8 +1,18 @@
-from sepChunk import divnoun
-from mkEumjul import mo
+# noun_data.py setting
+API_KEY = '759A14FBE239E5EE5BCC7A9A785BCC36'
+API_URL = 'http://stdict.korean.go.kr/api/search.do'
+NOUN_DATA_SETTING = {
+    'start': 3,
+    'step': 3,
+    'num': 100,
+    'max_': 2000,
+}
 
+# pred.py setting
+TEST_DATA_SIZE = 0.2
+RANDOM_STATE = 11
 
-samples = [
+SAMPLE = [
     '사회', '불만세력', '가운데', '학생', '불안정', '미국', '흑인', '절망감', '생활여건', '학생신분',
     '대학', '고등교육기관', '모순', '남녀', '특권층', '위험', '무책임', '기술사회', '실험실', '청년층',
     '요인', '사회적소외', '소외', '세계', '격리', '집단생활', '현대사회', '사회체제', '공동체', '비판',
@@ -15,14 +25,5 @@ samples = [
     '태양', '행성', '반말', '천동설', '피조물', '종교', '혁명', '프랑스', '지동설', '코페르니쿠스',
 ]
 
-def decide(noun: str, josa_type: str):
-    types = ['en', 'ig', 'er']
-    if josa_type not in types:
-        raise ValueError("올바르지 않은 조사 유형입니다. -> en, ig, er")
-    has_bat = False if list(divnoun(noun))[-1] in mo else True
-
-    return 0 if has_bat else 1
-    
-
-def get_josa_from_sample_data(josa_type: str):
-    return list(map(lambda n: decide(n, josa_type), samples))
+# preprocessing.py setting
+DEFAULT_ESTIMATOR = [1.00, 0.00, 10.00]
