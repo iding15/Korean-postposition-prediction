@@ -46,6 +46,9 @@ def divnoun(noun: str) -> str:
 
 
 def noun_to_num(noun: str, estimator: List[float]) -> float:
+    """
+    명사가 주어지면 자음, 모음, 받침에 적당한 weight을 주어 수치화한다.
+    """
     mo_val = to_float(mo, 'mo', estimator=estimator)
     ja_val = to_float(ja, 'ja', estimator=estimator)
     bat_val = to_float(bat, 'bat', estimator=estimator)
@@ -76,7 +79,7 @@ def noun_to_num(noun: str, estimator: List[float]) -> float:
         raise TypeError('문자열로 입력해주세요. 오류: {}'.format(t))
 
 
-import numpy as np
+import numpy as np  # np.array type으로 변환해야 sklearn 활용 가능
 
 
 def make_data(raw_data: List[str], estimator: List[float]=DEFAULT_ESTIMATOR) -> np.array:
