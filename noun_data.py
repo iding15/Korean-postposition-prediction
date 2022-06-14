@@ -1,4 +1,5 @@
 from config import API_KEY, API_URL, NOUN_DATA_SETTING
+
 import requests
 import re
 import json
