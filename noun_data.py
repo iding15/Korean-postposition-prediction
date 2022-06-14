@@ -22,6 +22,7 @@ def _get_params(q, start, num=100):
     return _default_params
 
 
+# ref: https://smlee729.github.io/python/natural%20language%20processing/2015/12/24/korean-letter-processing-part1.html
 JAMO_START_LETTER = 44032
 JAMO_END_LETTER = 55203
 JAMO_CYCLE = 1
@@ -87,6 +88,9 @@ def get_noun_data():
     try:
         with open('data.json', 'r') as f:
             json_data = json.load(f)
+            # remove duplicated data
+            data: list = json_data['data']
+            json_data['data'] = list(set(data))
             return json_data
     except FileNotFoundError:
         raise FileNotFoundError('data.json파일이 없습니다. noun_data.py 파일을 실행시켜주세요')
@@ -107,6 +111,7 @@ for cho in mo:
 d_hb = {bun_eum[i]: EUMJUL[i] for i in range(len(bun_eum))}  # 분리된 값이 키가 되는 음절데이터
 d_bn = {EUMJUL[i]: bun_eum[i] for i in range(len(EUMJUL))}  # 음절이 키가 되는 분리된 값 데이터
 
+
 def hbeum(bun):
     """
     자음, 모음을 합치는 함수
@@ -117,6 +122,7 @@ def hbeum(bun):
         print('특수문자나 .이 있는지 확인해주세요. 오류명: {}'.format(k))
     except TypeError as t:
         print('문자열로 입력해주세요. 오류명: {}'.format(t))
+
 
 def bneum(hab):
     """

@@ -72,7 +72,7 @@ def noun_to_num(noun: str, estimator: List[float]) -> float:
                 )
             else:
                 raise Exception('한글이 아닌 문자열이 포함되었습니다.')
-        return num
+        return float(num/len(noun))
     except KeyError as k:
         raise KeyError("특수문자나 숫자, '.'을 제거해주세요. 오류: {}".format(k))
     except TypeError as t:
