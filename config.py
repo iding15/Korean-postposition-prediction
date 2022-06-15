@@ -26,4 +26,4 @@ SAMPLE = [
 ]
 
 # preprocessing.py setting
-DEFAULT_ESTIMATOR = [1.00, 0.00, 10.00]
+DEFAULT_ESTIMATOR = [0.01, 0.01, 0.98]

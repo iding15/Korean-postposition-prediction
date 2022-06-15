@@ -1,13 +1,14 @@
 from pred import predjo
-from preprocessing import make_target, make_data
+from preprocessing import Target, NounData
 from noun_data import get_noun_data
 
 noun_data = get_noun_data()['data']
 
-noun = make_data(noun_data)
-en = make_target(noun_data, 'en')
-ig = make_target(noun_data, 'ig')
-er = make_target(noun_data, 'er')
+noun = NounData(noun_data).parse()
+
+en = Target(noun_data, 'en').parse()
+ig = Target(noun_data, 'ig').parse()
+er = Target(noun_data, 'er').parse()
 
 # print(en)
 # print(ig)

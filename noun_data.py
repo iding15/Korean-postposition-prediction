@@ -1,9 +1,9 @@
-from config import API_KEY, API_URL, NOUN_DATA_SETTING
-
 import requests
 import re
 import json
 from typing import List
+
+from config import API_KEY, API_URL, NOUN_DATA_SETTING
 
 
 _default_params = {
@@ -124,7 +124,7 @@ def hbeum(bun):
         print('문자열로 입력해주세요. 오류명: {}'.format(t))
 
 
-def bneum(hab):
+def bneum(hab: str) -> str:
     """
     음절을 자음, 모음으로 분리시키는 함수
     """
