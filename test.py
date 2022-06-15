@@ -2,6 +2,7 @@ import unittest
 import re
 import numpy as np
 from noun_data import EUMJUL, get_noun_data, bneum
+from functools import reduce
 
 
 class UnitTest(unittest.TestCase):
@@ -46,7 +47,17 @@ class UnitTest(unittest.TestCase):
         self.assertEqual(EUMJUL[0], '가')
     
     def test_noundata(self):
-        self.assertEqual(len(get_noun_data()['data']), 700)
+        self.assertEqual(len(get_noun_data()['data']), 574)
+    
+    def test_eumun_to_float(self):
+        names = ['a', 'b', 'c', 'd', 'e']
+        default = 10
+        result = dict(zip(
+            names, 
+            list(map(lambda n: default+n, range(1, 6))
+            )
+        ))
+        self.assertEqual(result['e'], 15)
 
 
 if __name__=='__main__':

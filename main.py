@@ -1,4 +1,4 @@
-from pred import predjo
+from pred import predict_with_decision_tree
 from preprocessing import Target, NounData
 from noun_data import get_noun_data
 
@@ -14,4 +14,4 @@ er = Target(noun_data, 'er').parse()
 # print(ig)
 # print(er)
 
-print(predjo(noun, en))
+print(predict_with_decision_tree(noun, en))

@@ -17,9 +17,9 @@ from config import TEST_DATA_SIZE, RANDOM_STATE
 # print(len(noundata))
 
 
-def predjo(noun_data_set: np.array, josa_data_set: np.array) -> pd.DataFrame:
+def predict_with_decision_tree(noun_data_set: np.array, josa_data_set: np.array) -> pd.DataFrame:
     """
-    분류 알고리즘을 적용한 조사 예측 함수
+    Decision Tree 알고리즘을 적용한 조사 예측 함수
     """
     X_train, X_test, y_train, y_test = train_test_split(noun_data_set, josa_data_set, test_size=TEST_DATA_SIZE, random_state=RANDOM_STATE)
     dt_clf = DecisionTreeClassifier(random_state=RANDOM_STATE)

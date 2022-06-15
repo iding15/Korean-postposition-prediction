@@ -3,7 +3,7 @@ from typing import List, ClassVar, Dict
 import numpy as np  # np.array type으로 변환해야 sklearn 활용 가능
 
 from noun_data import bneum, ja, mo, bat
-from config import DEFAULT_ESTIMATOR
+from config import DEFAULT_VARIABLE_WEIGHT
 
 
 class SerialProcess:
@@ -17,27 +17,28 @@ class SerialProcess:
 
 
 class NounData(SerialProcess):
-    estimator: ClassVar[List[float]] = DEFAULT_ESTIMATOR
+    weight: ClassVar[List[float]] = DEFAULT_VARIABLE_WEIGHT
 
     @staticmethod
     def eumun_to_float(buneum_list: List[str], type_: str) -> Dict[str, float]:
-        estimator = NounData.estimator
+        weight = NounData.weight
 
-        result = {}
         types = ['ja', 'mo', 'bat']
 
         if type_ not in types:
             raise ValueError("올바르지 않은 타입 값입니다: types = ['ja', 'mo', 'bat']")
         div_value: float
-        if type_ == 'ja': div_value = estimator[0]
-        elif type_ == 'mo': div_value = estimator[1]
-        else: div_value = estimator[2]
+        if type_ == 'ja': div_value = weight[0]
+        elif type_ == 'mo': div_value = weight[1]
+        else: div_value = weight[2]
 
-        count = 1
-        for bm in buneum_list:
-            num = div_value+float(count/100)
-            result[bm] = num
-            count += 1
+        result = dict(zip(
+            buneum_list,
+            list(map(
+                lambda num: div_value+float(num/100),
+                range(1, len(buneum_list)+1)
+            ))
+        ))
         return result
     
     @staticmethod

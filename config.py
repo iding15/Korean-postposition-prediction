@@ -26,4 +26,4 @@ SAMPLE = [
 ]
 
 # preprocessing.py setting
-DEFAULT_ESTIMATOR = [0.01, 0.01, 0.98]
+DEFAULT_VARIABLE_WEIGHT = [0., .1, .9]
