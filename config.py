@@ -10,7 +10,7 @@ NOUN_DATA_SETTING = {
 
 # pred.py setting
 TEST_DATA_SIZE = 0.2
-RANDOM_STATE = 11
+RANDOM_STATE = None
 
 SAMPLE = [
     '사회', '불만세력', '가운데', '학생', '불안정', '미국', '흑인', '절망감', '생활여건', '학생신분',

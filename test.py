@@ -47,7 +47,7 @@ class UnitTest(unittest.TestCase):
         self.assertEqual(EUMJUL[0], '가')
     
     def test_noundata(self):
-        self.assertEqual(len(get_noun_data()['data']), 574)
+        self.assertEqual(len(get_noun_data()['data']), 1588)
     
     def test_eumun_to_float(self):
         names = ['a', 'b', 'c', 'd', 'e']

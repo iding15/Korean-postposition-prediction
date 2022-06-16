@@ -138,4 +138,5 @@ def bneum(hab: str) -> str:
 
 if __name__=="__main__":
     setting = NOUN_DATA_SETTING
-    _set_noun_data(EUMJUL[20:50], **setting)
+    lookup = [EUMJUL[0], EUMJUL[21], EUMJUL[1176], EUMJUL[1764], EUMJUL[3528]]
+    _set_noun_data(lookup, **setting)

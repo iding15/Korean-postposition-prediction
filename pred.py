@@ -1,6 +1,6 @@
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, average_precision_score
 
 import pandas as pd
 import numpy as np
@@ -27,7 +27,7 @@ def predict_with_decision_tree(noun_data_set: np.array, josa_data_set: np.array)
 
     pred = dt_clf.predict(X_test)
 
-    print(accuracy_score(y_test, pred))  # 정확도 score
+    # print(accuracy_score(y_test, pred))  # 정확도 score
     xt = pd.DataFrame(X_test, columns=['X_test'])
     yt = pd.DataFrame(y_test, columns=['y_test'])
     pr = pd.DataFrame(pred, columns=['predict'])
@@ -38,5 +38,6 @@ def predict_with_decision_tree(noun_data_set: np.array, josa_data_set: np.array)
         if y_test[c] != pred[c]:
             l.append(c)
         c=c+1
-    print(l)  # 예측하는데 사용한 데이터 셋
-    return pd.concat([xt,yt,pr],axis=1)
+    # print(l)  # 예측하는데 사용한 데이터 셋
+    # print(pd.concat([xt,yt,pr],axis=1))
+    return average_precision_score(y_test, pred)

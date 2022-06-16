@@ -17,12 +17,8 @@ class SerialProcess:
 
 
 class NounData(SerialProcess):
-    weight: ClassVar[List[float]] = DEFAULT_VARIABLE_WEIGHT
-
     @staticmethod
-    def eumun_to_float(buneum_list: List[str], type_: str) -> Dict[str, float]:
-        weight = NounData.weight
-
+    def eumun_to_float(buneum_list: List[str], type_: str, weight: List[float]) -> Dict[str, float]:
         types = ['ja', 'mo', 'bat']
 
         if type_ not in types:
@@ -42,15 +38,15 @@ class NounData(SerialProcess):
         return result
     
     @staticmethod
-    def noun_to_num(noun: str) -> float:
+    def noun_to_num(noun: str, weight: List[float]) -> float:
         if not isinstance(noun, str):
             raise TypeError(f'NounData expected str not {noun.__class__.__name__}')
         
         _to_float: function = NounData.eumun_to_float
 
-        mo_val = _to_float(mo, 'mo')
-        ja_val = _to_float(ja, 'ja')
-        bat_val = _to_float(bat, 'bat')
+        mo_val = _to_float(mo, 'mo', weight)
+        ja_val = _to_float(ja, 'ja', weight)
+        bat_val = _to_float(bat, 'bat', weight)
 
         try:
             noun = re.sub('\s+','',noun)
@@ -77,12 +73,14 @@ class NounData(SerialProcess):
         except TypeError as t:
             raise TypeError('문자열로 입력해주세요. 오류: {}'.format(t))
 
-    def __init__(self, raw: List[str]):
+    def __init__(self, raw: List[str], weight: List[float] = None):
         super().__init__(raw)
-
         if not isinstance(raw, list):
             raise TypeError(f'{self.__name__} expected list not {raw.__class__.__name__}')
-
+        
+        self.weight = DEFAULT_VARIABLE_WEIGHT
+        if weight is not None:
+            self.weight = weight
         self.func= [
             self.preprocess_noun_data
         ]
@@ -91,7 +89,7 @@ class NounData(SerialProcess):
         _noun_to_num = NounData.noun_to_num
 
         return np.array(list(map(
-            lambda noun: _noun_to_num(noun), self.data
+            lambda noun: _noun_to_num(noun, self.weight), self.data
         ))).reshape(len(self.data), 1)
 
 
